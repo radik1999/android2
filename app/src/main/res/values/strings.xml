@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="about">About</string>
+    <string name="title_fragment">Title Fragment</string>
+    <string name="about_app">About my app</string>
+    <string name="how_to_use">How to use</string>
+    <string name="share">share</string>
+</resources>
