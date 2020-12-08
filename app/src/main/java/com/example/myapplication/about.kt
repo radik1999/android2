@@ -26,7 +26,7 @@ class about : Fragment() {
 
     private fun getShareIntent() : Intent {
         return ShareCompat.IntentBuilder.from(requireActivity())
-                .setText("Share test")
+                .setText(getString(R.string.about_app))
                 .setType("text/plain")
                 .intent
     }
