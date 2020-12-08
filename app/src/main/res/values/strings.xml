@@ -19,4 +19,8 @@
         Насолоджуйся :))
     </string>
     <string name="share">share</string>
+
+    <string name="submit">Submit</string>
+    <string name="hint_edit_text">Куда привезти</string>
+<!--    <string name=""></string>-->
 </resources>

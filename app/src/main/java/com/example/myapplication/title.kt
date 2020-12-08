@@ -7,8 +7,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.myapplication.databinding.FragmentTitleBinding
+import timber.log.Timber
 
 class title : Fragment() {
+
+    private var customer_address = ""
+    private var adr_key = "adr"
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -17,8 +21,26 @@ class title : Fragment() {
 
         setHasOptionsMenu(true)
 
-        return binding.root
+        binding.adrSubmit.setOnClickListener{
+            customer_address = binding.address.text.toString()
+            binding.custAdr.text = customer_address
 
+        }
+
+
+        if (savedInstanceState != null){
+           customer_address = savedInstanceState.getString(adr_key).toString()
+        }
+
+        binding.custAdr.text = customer_address
+
+        return binding.root
+    }
+
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(adr_key, customer_address)
     }
 
 

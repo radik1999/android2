@@ -17,6 +17,10 @@
 package com.example.myapplication
 
 import android.os.Handler
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
 import timber.log.Timber
 
 /**
@@ -34,11 +38,16 @@ import timber.log.Timber
  * https://developer.android.com/guide/components/processes-and-threads
  *
  */
-open class MyTimer(place: String = "") {
-    var place = place
+open class MyTimer(lifecycle: Lifecycle ,place: String = "") : LifecycleObserver {
     // The number of seconds counted since the timer started
+
+    var place = place
     var secondsCount = 0
 
+
+    init {
+        lifecycle.addObserver(this)
+    }
     /**
      * [Handler] is a class meant to process a queue of messages (known as [android.os.Message]s)
      * or actions (known as [Runnable]s)
@@ -47,11 +56,12 @@ open class MyTimer(place: String = "") {
     private lateinit var runnable: Runnable
 
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     open fun startTimer() {
         // Create the runnable action, which prints out a log and increments the seconds counter
         runnable = Runnable {
             secondsCount++
-            Timber.i("Timer in $place is at : $secondsCount")
+//            Timber.i("Timer in $place is at : $secondsCount")
             // postDelayed re-adds the action to the queue of actions the Handler is cycling
             // through. The delayMillis param tells the handler to run the runnable in
             // 1 second (1000ms)
@@ -64,17 +74,11 @@ open class MyTimer(place: String = "") {
         // In this case, no looper is defined, and it defaults to the main or UI thread.
     }
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun stopTimer() {
         // Removes all pending posts of runnable from the handler's queue, effectively stopping the
         // timer
         handler.removeCallbacks(runnable)
     }
 
-    fun getSeconds(): Int{
-        return secondsCount
-    }
-
-    open fun showSeconds(){
-        Timber.i("Timer in $place is at : $secondsCount")
-    }
 }
